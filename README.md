@@ -43,10 +43,21 @@ The app is designed to work out of the box with no external dependencies, other 
 
 ```shell
 bundle install
+
+# tested with Node 16
 yarn install
 ```
 
+
 ### Running locally
+
+Using your favorite process manager (Procodile, Foreman, Overmind, ..) simply run the provided `Procfile.dev`:
+
+```shell
+overmind start -f ./Procfile.dev
+````
+
+You can also start backend and frontend separately
 
 #### Frontend
 
@@ -57,7 +68,7 @@ yarn install
 #### Backend
 
 ```shell
-rails s
+bundle exec puma -C config/puma.rb
 ```
 
-Once started, the app should be available via http://localhost:3000
+Once started, the app should be available via http://localhost:3000.

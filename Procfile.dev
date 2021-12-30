@@ -1,3 +1,2 @@
-webpacker: ./bin/webpack-dev-server
-rails: bundle exec rails s -b 0.0.0.0 -p 3000
-browsersync: browser-sync start --proxy "127.0.0.1:3000" --files "app/**/*" --port 4000 --no-open
+frontend: ./bin/webpack-dev-server
+backend: bundle exec puma -C config/puma.rb

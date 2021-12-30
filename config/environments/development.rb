@@ -1,5 +1,6 @@
 Rails.application.configure do
-  config.hosts = nil
+  config.hosts << 'localhost'
+  config.hosts << 'localhost:3000'
   # Settings specified here will take precedence over those in config/application.rb.
 
   # In the development environment your application's code is reloaded on

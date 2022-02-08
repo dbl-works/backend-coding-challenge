@@ -1,6 +1,6 @@
 # Backend Coding Challenge
 
-Thanks so much for your interest in working at [Lufthansa Innovation Hub](https://lh-innovationhub.de/) as a [Senior backend developer](https://weworkremotely.com/remote-jobs/lufthansa-innovation-hub-senior-backend-developer-ruby)! Below is a challenge we'd like to have you do. The primary purpose of this is to understand how you solve engineering challenges.
+Thanks so much for your interest in working at with us as a **Senior backend developer**! Below is a challenge we'd like to have you do. The primary purpose of this is to understand how you solve engineering challenges.
 
 **You should spend no more than 1 hour on this project.**
 

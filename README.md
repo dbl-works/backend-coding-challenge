@@ -44,8 +44,7 @@ The app is designed to work out of the box with no external dependencies, other 
 ```shell
 bundle install
 
-# tested with Node 16
-# :warning: you might need to use node 14 on a M1 mac
+# tested with Node 14 & 16 (Intel and M1 chips)
 yarn install
 ```
 

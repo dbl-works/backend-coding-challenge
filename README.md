@@ -1,6 +1,6 @@
 # Backend Coding Challenge
 
-Thanks so much for your interest in working at [Lufthansa Innovation Hub](https://lh-innovationhub.de/) as a [Senior backend developer](https://weworkremotely.com/remote-jobs/lufthansa-innovation-hub-senior-backend-developer-ruby)! Below is a challenge we'd like to have you do. The primary purpose of this is to understand how you solve engineering challenges.
+Thanks so much for your interest in working at with us as a **Senior backend developer**! Below is a challenge we'd like to have you do. The primary purpose of this is to understand how you solve engineering challenges.
 
 **You should spend no more than 1 hour on this project.**
 
@@ -43,10 +43,21 @@ The app is designed to work out of the box with no external dependencies, other 
 
 ```shell
 bundle install
+
+# tested with Node 14 & 16 (Intel and M1 chips)
 yarn install
 ```
 
+
 ### Running locally
+
+Using your favorite process manager (Procodile, Foreman, Overmind, ..) simply run the provided `Procfile.dev`:
+
+```shell
+overmind start -f ./Procfile.dev
+````
+
+You can also start backend and frontend separately
 
 #### Frontend
 
@@ -57,7 +68,7 @@ yarn install
 #### Backend
 
 ```shell
-rails s
+bundle exec puma -C config/puma.rb
 ```
 
-Once started, the app should be available via http://localhost:3000
+Once started, the app should be available via http://localhost:3000.

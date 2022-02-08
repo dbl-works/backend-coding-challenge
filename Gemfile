@@ -5,7 +5,7 @@ ruby '2.7.4'
 
 # rails
 gem 'bootsnap', '>= 1.4.8', require: false
-gem 'rails', '~> 6.0', '>= 6.0.3.7'
+gem 'rails', '~> 6.0', '>= 6.0.3.7', '< 6.1'
 gem 'responders'
 
 # DB
@@ -28,6 +28,7 @@ gem 'webmock'
 gem 'api-pagination'
 gem 'blueprinter'
 gem 'pagy'
+gem 'rack-cors', require: 'rack/cors'
 
 # factory_bot also used for seed data in development
 gem 'factory_bot_rails', '~> 6.1.0', require: false

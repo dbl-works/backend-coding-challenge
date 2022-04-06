@@ -1,3 +1,6 @@
+# ⚠️ 🔥 Do NOT create a public fork of this! Thanks!
+Either invite [swiknaba](https://github.com/swiknaba) to a **private** repo, or upload your code e.g. to Dropbox and send a link along with the application.
+
 # Backend Coding Challenge
 
 Thanks so much for your interest in working at with us as a **Senior backend developer**! Below is a challenge we'd like to have you do. The primary purpose of this is to understand how you solve engineering challenges.

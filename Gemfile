@@ -31,8 +31,8 @@ gem 'pagy'
 gem 'rack-cors', require: 'rack/cors'
 
 # factory_bot also used for seed data in development
-gem 'factory_bot_rails', '~> 6.1.0', require: false
-gem 'ffaker', '~> 2.17'
+gem 'factory_bot_rails', require: false
+gem 'ffaker'
 
 group :development do
   gem 'annotate'

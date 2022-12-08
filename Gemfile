@@ -1,11 +1,11 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.7.4'
+ruby '3.1.2'
 
 # rails
 gem 'bootsnap', '>= 1.4.8', require: false
-gem 'rails', '~> 6.0', '>= 6.0.3.7', '< 6.1'
+gem 'rails', '~> 6.1'
 gem 'responders'
 
 # DB
@@ -31,8 +31,8 @@ gem 'pagy'
 gem 'rack-cors', require: 'rack/cors'
 
 # factory_bot also used for seed data in development
-gem 'factory_bot_rails', '~> 6.1.0', require: false
-gem 'ffaker', '~> 2.17'
+gem 'factory_bot_rails', require: false
+gem 'ffaker'
 
 group :development do
   gem 'annotate'

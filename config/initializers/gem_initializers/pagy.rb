@@ -1,1 +1,1 @@
-Pagy::VARS[:max_per_page] = 100
+Pagy::DEFAULT[:max_per_page] = 100

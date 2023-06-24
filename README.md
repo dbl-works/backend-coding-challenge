@@ -1,11 +1,13 @@
-# ⚠️ 🔥 Do NOT create a public fork of this! Thanks!
-Either invite [swiknaba](https://github.com/swiknaba) to a **private** repo, or upload your code e.g. to Dropbox and send a link along with the application.
-
 # Backend Coding Challenge
+
+⚠️ 🔥 Do NOT create a public fork of this!
+Invite [swiknaba](https://github.com/swiknaba) to a **private** repo, or upload your code e.g. to Dropbox and send a link along with the application. Thank you!
 
 Thanks so much for your interest in working at with us as a **Senior backend developer**! Below is a challenge we'd like to have you do. The primary purpose of this is to understand how you solve engineering challenges.
 
-**You should spend no more than 1 hour on this project.**
+**You should spend no more than one hour on this project.**
+
+The goal is, that we get an understanding of how you approach problems rather than you spending a lot of time on this to make it perfect.
 
 ## 🔐 The challenge
 
@@ -51,10 +53,9 @@ bundle install
 yarn install
 ```
 
-
 ### Running locally
 
-Using your favorite process manager (Procodile, Foreman, Overmind, ..) simply run the provided `Procfile.dev`:
+Using your favorite process manager (Procodile, Foreman, Overmind, ..) simply run the provided Procfile:
 
 ```shell
 overmind start -f ./Procfile.dev
@@ -64,7 +65,7 @@ You can also start backend and frontend separately
 
 #### Frontend
 
-```
+```shell
 ./bin/webpack-dev-server
 ```
 
@@ -74,4 +75,4 @@ You can also start backend and frontend separately
 bundle exec puma -C config/puma.rb
 ```
 
-Once started, the app should be available via http://localhost:3000.
+Once started, the app should be available on [localhost](http://localhost:3000).

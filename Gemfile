@@ -29,6 +29,14 @@ gem 'blueprinter'
 gem 'pagy'
 gem 'rack-cors', require: 'rack/cors'
 
+# type safety
+group :development do
+  gem 'sorbet'
+  gem 'spoom'
+  gem 'tapioca'
+end
+gem 'sorbet-runtime'
+
 # factory_bot also used for seed data in development
 gem 'factory_bot_rails', require: false
 gem 'ffaker'

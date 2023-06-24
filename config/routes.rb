@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get '/healthz' => 'checks#healthz'
+
   # API
   # TODO: add routes
 

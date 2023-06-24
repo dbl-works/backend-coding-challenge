@@ -1,11 +1,10 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '3.1.2'
+ruby '3.2.2'
 
 # rails
-gem 'bootsnap', '>= 1.4.8', require: false
-gem 'rails', '~> 6.1'
+gem 'rails', '< 7.0.0'
 gem 'responders'
 
 # DB
@@ -37,8 +36,6 @@ gem 'ffaker'
 group :development do
   gem 'annotate'
   gem 'listen'
-  gem 'spring'
-  gem 'spring-commands-rspec'
 end
 
 group :test do

@@ -1,7 +1,7 @@
 module CodeChallengeRails
   module Cors
     def self.regex
-      %r{\Ahttps?://([a-zA-Z\d-]+\.){0,}(localhost|test):?(\d*)\z}
+      %r{\Ahttps?://([a-zA-Z\d-]+\.){0,}(localhost|test|0.0.0.0|127.0.0.1):?(\d*)\z}
     end
   end
 

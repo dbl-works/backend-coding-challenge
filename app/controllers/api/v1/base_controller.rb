@@ -1,7 +1,11 @@
+# typed: strict
+
 module API
   module V1
     class CustomValidationError < StandardError; end
     class BaseController < ActionController::API
+      extend T::Sig
+
       respond_to :json
 
       rescue_from CustomValidationError,

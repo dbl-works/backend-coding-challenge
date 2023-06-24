@@ -1,3 +1,5 @@
+# typed: strict
+
 # == Schema Information
 #
 # Table name: airports

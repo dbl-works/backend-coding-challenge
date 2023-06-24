@@ -7,7 +7,7 @@ Thanks so much for your interest in working at with us as a **Senior backend dev
 
 **You should spend no more than one hour on this project.**
 
-The goal is, that we get an understanding of how you approach problems rather than you spending a lot of time on this to make it perfect.
+The goal is, that we get an understanding of how you approach problems rather than you spending a lot of time on this to make it perfect. Please keep the codebase on your machine, we will pair-code on this project in the next step. You getting this app to run on your machine with a very simply part already implemented ensures that we can focus on the interesting parts while pair coding.
 
 ## 🔐 The challenge
 

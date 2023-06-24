@@ -36,8 +36,6 @@ gem 'ffaker'
 group :development do
   gem 'annotate'
   gem 'listen'
-  gem 'spring'
-  gem 'spring-commands-rspec'
 end
 
 group :test do

@@ -18,17 +18,18 @@ class Airport
     sig { params(block: T.nilable(T.proc.params(record: ::Airport).returns(T.untyped))).returns(T::Boolean) }
     def any?(&block); end
 
-    sig { params(column_name: T.any(String, Symbol)).returns(T.untyped) }
+    sig { params(column_name: T.any(String, Symbol)).returns(Numeric) }
     def average(column_name); end
 
     sig { params(attributes: T.untyped, block: T.nilable(T.proc.params(object: ::Airport).void)).returns(::Airport) }
     def build(attributes = nil, &block); end
 
-    sig { params(operation: Symbol, column_name: T.any(String, Symbol)).returns(T.untyped) }
+    sig { params(operation: Symbol, column_name: T.any(String, Symbol)).returns(Numeric) }
     def calculate(operation, column_name); end
 
-    sig { params(column_name: T.untyped).returns(T.untyped) }
-    def count(column_name = nil); end
+    sig { params(column_name: T.nilable(T.any(String, Symbol))).returns(Integer) }
+    sig { params(column_name: NilClass, block: T.proc.params(object: ::Airport).void).returns(Integer) }
+    def count(column_name = nil, &block); end
 
     sig { params(attributes: T.untyped, block: T.nilable(T.proc.params(object: ::Airport).void)).returns(::Airport) }
     def create(attributes = nil, &block); end
@@ -54,8 +55,18 @@ class Airport
     sig { returns(::Airport) }
     def fifth!; end
 
-    sig { params(args: T.untyped).returns(T.untyped) }
-    def find(*args); end
+    sig do
+      params(
+        args: T.any(String, Symbol, ::ActiveSupport::Multibyte::Chars, T::Boolean, BigDecimal, Numeric, ::ActiveRecord::Type::Binary::Data, ::ActiveRecord::Type::Time::Value, Date, Time, ::ActiveSupport::Duration, T::Class[T.anything])
+      ).returns(::Airport)
+    end
+    sig do
+      params(
+        args: T::Array[T.any(String, Symbol, ::ActiveSupport::Multibyte::Chars, T::Boolean, BigDecimal, Numeric, ::ActiveRecord::Type::Binary::Data, ::ActiveRecord::Type::Time::Value, Date, Time, ::ActiveSupport::Duration, T::Class[T.anything])]
+      ).returns(T::Enumerable[::Airport])
+    end
+    sig { params(args: NilClass, block: T.proc.params(object: ::Airport).void).returns(T.nilable(::Airport)) }
+    def find(args = nil, &block); end
 
     sig { params(args: T.untyped).returns(T.nilable(::Airport)) }
     def find_by(*args); end
@@ -70,8 +81,17 @@ class Airport
         batch_size: Integer,
         error_on_ignore: T.untyped,
         order: Symbol,
-        block: T.nilable(T.proc.params(object: ::Airport).void)
-      ).returns(T.nilable(T::Enumerator[::Airport]))
+        block: T.proc.params(object: ::Airport).void
+      ).void
+    end
+    sig do
+      params(
+        start: T.untyped,
+        finish: T.untyped,
+        batch_size: Integer,
+        error_on_ignore: T.untyped,
+        order: Symbol
+      ).returns(T::Enumerator[::Airport])
     end
     def find_each(start: nil, finish: nil, batch_size: 1000, error_on_ignore: nil, order: :asc, &block); end
 
@@ -82,8 +102,17 @@ class Airport
         batch_size: Integer,
         error_on_ignore: T.untyped,
         order: Symbol,
-        block: T.nilable(T.proc.params(object: T::Array[::Airport]).void)
-      ).returns(T.nilable(T::Enumerator[T::Enumerator[::Airport]]))
+        block: T.proc.params(object: T::Array[::Airport]).void
+      ).void
+    end
+    sig do
+      params(
+        start: T.untyped,
+        finish: T.untyped,
+        batch_size: Integer,
+        error_on_ignore: T.untyped,
+        order: Symbol
+      ).returns(T::Enumerator[T::Enumerator[::Airport]])
     end
     def find_in_batches(start: nil, finish: nil, batch_size: 1000, error_on_ignore: nil, order: :asc, &block); end
 
@@ -102,10 +131,8 @@ class Airport
     sig { params(signed_id: T.untyped, purpose: T.untyped).returns(::Airport) }
     def find_signed!(signed_id, purpose: nil); end
 
-    sig { params(arg: T.untyped, args: T.untyped).returns(::Airport) }
-    def find_sole_by(arg, *args); end
-
-    sig { params(limit: T.untyped).returns(T.untyped) }
+    sig { params(limit: NilClass).returns(T.nilable(::Airport)) }
+    sig { params(limit: Integer).returns(T::Array[::Airport]) }
     def first(limit = nil); end
 
     sig { returns(::Airport) }
@@ -134,15 +161,26 @@ class Airport
         load: T.untyped,
         error_on_ignore: T.untyped,
         order: Symbol,
-        block: T.nilable(T.proc.params(object: PrivateRelation).void)
-      ).returns(T.nilable(::ActiveRecord::Batches::BatchEnumerator))
+        block: T.proc.params(object: PrivateRelation).void
+      ).void
+    end
+    sig do
+      params(
+        of: Integer,
+        start: T.untyped,
+        finish: T.untyped,
+        load: T.untyped,
+        error_on_ignore: T.untyped,
+        order: Symbol
+      ).returns(::ActiveRecord::Batches::BatchEnumerator)
     end
     def in_batches(of: 1000, start: nil, finish: nil, load: false, error_on_ignore: nil, order: :asc, &block); end
 
     sig { params(record: T.untyped).returns(T::Boolean) }
     def include?(record); end
 
-    sig { params(limit: T.untyped).returns(T.untyped) }
+    sig { params(limit: NilClass).returns(T.nilable(::Airport)) }
+    sig { params(limit: Integer).returns(T::Array[::Airport]) }
     def last(limit = nil); end
 
     sig { returns(::Airport) }
@@ -187,18 +225,16 @@ class Airport
     sig { returns(::Airport) }
     def second_to_last!; end
 
-    sig { returns(::Airport) }
-    def sole; end
-
     sig do
       params(
         column_name: T.nilable(T.any(String, Symbol)),
         block: T.nilable(T.proc.params(record: T.untyped).returns(T.untyped))
-      ).returns(T.untyped)
+      ).returns(Numeric)
     end
     def sum(column_name = nil, &block); end
 
-    sig { params(limit: T.untyped).returns(T.untyped) }
+    sig { params(limit: NilClass).returns(T.nilable(::Airport)) }
+    sig { params(limit: Integer).returns(T::Array[::Airport]) }
     def take(limit = nil); end
 
     sig { returns(::Airport) }
@@ -240,25 +276,19 @@ class Airport
     def except(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
-    def excluding(*args, &blk); end
-
-    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def extending(*args, &blk); end
 
-    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
-    def extract_associated(*args, &blk); end
+    sig { params(association: Symbol).returns(T::Array[T.untyped]) }
+    def extract_associated(association); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def from(*args, &blk); end
 
-    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
+    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelationGroupChain) }
     def group(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def having(*args, &blk); end
-
-    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
-    def in_order_of(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def includes(*args, &blk); end
@@ -296,9 +326,6 @@ class Airport
       ).returns(ActiveRecord::Result)
     end
     def insert_all!(attributes, returning: nil); end
-
-    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
-    def invert_where(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def joins(*args, &blk); end
@@ -364,9 +391,6 @@ class Airport
     def strict_loading(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
-    def structurally_compatible?(*args, &blk); end
-
-    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def uniq!(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
@@ -392,9 +416,6 @@ class Airport
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelationWhereChain) }
     def where(*args, &blk); end
-
-    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
-    def without(*args, &blk); end
   end
 
   module GeneratedAttributeMethods
@@ -422,8 +443,8 @@ class Airport
     sig { returns(T.nilable([T.nilable(::Integer), T.nilable(::Integer)])) }
     def altitude_change_to_be_saved; end
 
-    sig { returns(T::Boolean) }
-    def altitude_changed?; end
+    sig { params(from: T.nilable(::Integer), to: T.nilable(::Integer)).returns(T::Boolean) }
+    def altitude_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::Integer)) }
     def altitude_in_database; end
@@ -431,8 +452,8 @@ class Airport
     sig { returns(T.nilable([T.nilable(::Integer), T.nilable(::Integer)])) }
     def altitude_previous_change; end
 
-    sig { returns(T::Boolean) }
-    def altitude_previously_changed?; end
+    sig { params(from: T.nilable(::Integer), to: T.nilable(::Integer)).returns(T::Boolean) }
+    def altitude_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::Integer)) }
     def altitude_previously_was; end
@@ -467,8 +488,8 @@ class Airport
     sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
     def city_change_to_be_saved; end
 
-    sig { returns(T::Boolean) }
-    def city_changed?; end
+    sig { params(from: T.nilable(::String), to: T.nilable(::String)).returns(T::Boolean) }
+    def city_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::String)) }
     def city_in_database; end
@@ -476,8 +497,8 @@ class Airport
     sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
     def city_previous_change; end
 
-    sig { returns(T::Boolean) }
-    def city_previously_changed?; end
+    sig { params(from: T.nilable(::String), to: T.nilable(::String)).returns(T::Boolean) }
+    def city_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::String)) }
     def city_previously_was; end
@@ -521,8 +542,8 @@ class Airport
     sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
     def country_alpha2_change_to_be_saved; end
 
-    sig { returns(T::Boolean) }
-    def country_alpha2_changed?; end
+    sig { params(from: T.nilable(::String), to: T.nilable(::String)).returns(T::Boolean) }
+    def country_alpha2_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::String)) }
     def country_alpha2_in_database; end
@@ -530,8 +551,8 @@ class Airport
     sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
     def country_alpha2_previous_change; end
 
-    sig { returns(T::Boolean) }
-    def country_alpha2_previously_changed?; end
+    sig { params(from: T.nilable(::String), to: T.nilable(::String)).returns(T::Boolean) }
+    def country_alpha2_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::String)) }
     def country_alpha2_previously_was; end
@@ -557,8 +578,8 @@ class Airport
     sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
     def country_change_to_be_saved; end
 
-    sig { returns(T::Boolean) }
-    def country_changed?; end
+    sig { params(from: T.nilable(::String), to: T.nilable(::String)).returns(T::Boolean) }
+    def country_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::String)) }
     def country_in_database; end
@@ -566,8 +587,8 @@ class Airport
     sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
     def country_previous_change; end
 
-    sig { returns(T::Boolean) }
-    def country_previously_changed?; end
+    sig { params(from: T.nilable(::String), to: T.nilable(::String)).returns(T::Boolean) }
+    def country_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::String)) }
     def country_previously_was; end
@@ -602,8 +623,8 @@ class Airport
     sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
     def created_at_change_to_be_saved; end
 
-    sig { returns(T::Boolean) }
-    def created_at_changed?; end
+    sig { params(from: ::ActiveSupport::TimeWithZone, to: ::ActiveSupport::TimeWithZone).returns(T::Boolean) }
+    def created_at_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
     def created_at_in_database; end
@@ -611,8 +632,8 @@ class Airport
     sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
     def created_at_previous_change; end
 
-    sig { returns(T::Boolean) }
-    def created_at_previously_changed?; end
+    sig { params(from: ::ActiveSupport::TimeWithZone, to: ::ActiveSupport::TimeWithZone).returns(T::Boolean) }
+    def created_at_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
     def created_at_previously_was; end
@@ -647,8 +668,8 @@ class Airport
     sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
     def dst_change_to_be_saved; end
 
-    sig { returns(T::Boolean) }
-    def dst_changed?; end
+    sig { params(from: T.nilable(::String), to: T.nilable(::String)).returns(T::Boolean) }
+    def dst_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::String)) }
     def dst_in_database; end
@@ -656,8 +677,8 @@ class Airport
     sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
     def dst_previous_change; end
 
-    sig { returns(T::Boolean) }
-    def dst_previously_changed?; end
+    sig { params(from: T.nilable(::String), to: T.nilable(::String)).returns(T::Boolean) }
+    def dst_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::String)) }
     def dst_previously_was; end
@@ -692,8 +713,8 @@ class Airport
     sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
     def iata_change_to_be_saved; end
 
-    sig { returns(T::Boolean) }
-    def iata_changed?; end
+    sig { params(from: T.nilable(::String), to: T.nilable(::String)).returns(T::Boolean) }
+    def iata_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::String)) }
     def iata_in_database; end
@@ -701,8 +722,8 @@ class Airport
     sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
     def iata_previous_change; end
 
-    sig { returns(T::Boolean) }
-    def iata_previously_changed?; end
+    sig { params(from: T.nilable(::String), to: T.nilable(::String)).returns(T::Boolean) }
+    def iata_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::String)) }
     def iata_previously_was; end
@@ -737,8 +758,8 @@ class Airport
     sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
     def icao_change_to_be_saved; end
 
-    sig { returns(T::Boolean) }
-    def icao_changed?; end
+    sig { params(from: T.nilable(::String), to: T.nilable(::String)).returns(T::Boolean) }
+    def icao_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::String)) }
     def icao_in_database; end
@@ -746,8 +767,8 @@ class Airport
     sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
     def icao_previous_change; end
 
-    sig { returns(T::Boolean) }
-    def icao_previously_changed?; end
+    sig { params(from: T.nilable(::String), to: T.nilable(::String)).returns(T::Boolean) }
+    def icao_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::String)) }
     def icao_previously_was; end
@@ -758,16 +779,16 @@ class Airport
     sig { void }
     def icao_will_change!; end
 
-    sig { returns(T.untyped) }
+    sig { returns(T.nilable(::String)) }
     def id; end
 
-    sig { params(value: T.untyped).returns(T.untyped) }
+    sig { params(value: ::String).returns(::String) }
     def id=(value); end
 
     sig { returns(T::Boolean) }
     def id?; end
 
-    sig { returns(T.untyped) }
+    sig { returns(T.nilable(::String)) }
     def id_before_last_save; end
 
     sig { returns(T.untyped) }
@@ -776,28 +797,28 @@ class Airport
     sig { returns(T::Boolean) }
     def id_came_from_user?; end
 
-    sig { returns(T.nilable([T.untyped, T.untyped])) }
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
     def id_change; end
 
-    sig { returns(T.nilable([T.untyped, T.untyped])) }
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
     def id_change_to_be_saved; end
 
-    sig { returns(T::Boolean) }
-    def id_changed?; end
+    sig { params(from: ::String, to: ::String).returns(T::Boolean) }
+    def id_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
-    sig { returns(T.untyped) }
+    sig { returns(T.nilable(::String)) }
     def id_in_database; end
 
-    sig { returns(T.nilable([T.untyped, T.untyped])) }
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
     def id_previous_change; end
 
-    sig { returns(T::Boolean) }
-    def id_previously_changed?; end
+    sig { params(from: ::String, to: ::String).returns(T::Boolean) }
+    def id_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
-    sig { returns(T.untyped) }
+    sig { returns(T.nilable(::String)) }
     def id_previously_was; end
 
-    sig { returns(T.untyped) }
+    sig { returns(T.nilable(::String)) }
     def id_was; end
 
     sig { void }
@@ -827,8 +848,8 @@ class Airport
     sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
     def kind_change_to_be_saved; end
 
-    sig { returns(T::Boolean) }
-    def kind_changed?; end
+    sig { params(from: T.nilable(::String), to: T.nilable(::String)).returns(T::Boolean) }
+    def kind_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::String)) }
     def kind_in_database; end
@@ -836,8 +857,8 @@ class Airport
     sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
     def kind_previous_change; end
 
-    sig { returns(T::Boolean) }
-    def kind_previously_changed?; end
+    sig { params(from: T.nilable(::String), to: T.nilable(::String)).returns(T::Boolean) }
+    def kind_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::String)) }
     def kind_previously_was; end
@@ -872,8 +893,8 @@ class Airport
     sig { returns(T.nilable([T.nilable(::BigDecimal), T.nilable(::BigDecimal)])) }
     def latitude_change_to_be_saved; end
 
-    sig { returns(T::Boolean) }
-    def latitude_changed?; end
+    sig { params(from: T.nilable(::BigDecimal), to: T.nilable(::BigDecimal)).returns(T::Boolean) }
+    def latitude_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::BigDecimal)) }
     def latitude_in_database; end
@@ -881,8 +902,8 @@ class Airport
     sig { returns(T.nilable([T.nilable(::BigDecimal), T.nilable(::BigDecimal)])) }
     def latitude_previous_change; end
 
-    sig { returns(T::Boolean) }
-    def latitude_previously_changed?; end
+    sig { params(from: T.nilable(::BigDecimal), to: T.nilable(::BigDecimal)).returns(T::Boolean) }
+    def latitude_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::BigDecimal)) }
     def latitude_previously_was; end
@@ -917,8 +938,8 @@ class Airport
     sig { returns(T.nilable([T.nilable(::BigDecimal), T.nilable(::BigDecimal)])) }
     def longitude_change_to_be_saved; end
 
-    sig { returns(T::Boolean) }
-    def longitude_changed?; end
+    sig { params(from: T.nilable(::BigDecimal), to: T.nilable(::BigDecimal)).returns(T::Boolean) }
+    def longitude_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::BigDecimal)) }
     def longitude_in_database; end
@@ -926,8 +947,8 @@ class Airport
     sig { returns(T.nilable([T.nilable(::BigDecimal), T.nilable(::BigDecimal)])) }
     def longitude_previous_change; end
 
-    sig { returns(T::Boolean) }
-    def longitude_previously_changed?; end
+    sig { params(from: T.nilable(::BigDecimal), to: T.nilable(::BigDecimal)).returns(T::Boolean) }
+    def longitude_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::BigDecimal)) }
     def longitude_previously_was; end
@@ -962,8 +983,8 @@ class Airport
     sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
     def name_change_to_be_saved; end
 
-    sig { returns(T::Boolean) }
-    def name_changed?; end
+    sig { params(from: T.nilable(::String), to: T.nilable(::String)).returns(T::Boolean) }
+    def name_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::String)) }
     def name_in_database; end
@@ -971,8 +992,8 @@ class Airport
     sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
     def name_previous_change; end
 
-    sig { returns(T::Boolean) }
-    def name_previously_changed?; end
+    sig { params(from: T.nilable(::String), to: T.nilable(::String)).returns(T::Boolean) }
+    def name_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::String)) }
     def name_previously_was; end
@@ -1007,8 +1028,8 @@ class Airport
     sig { returns(T.nilable([T.nilable(::Integer), T.nilable(::Integer)])) }
     def passenger_volume_change_to_be_saved; end
 
-    sig { returns(T::Boolean) }
-    def passenger_volume_changed?; end
+    sig { params(from: T.nilable(::Integer), to: T.nilable(::Integer)).returns(T::Boolean) }
+    def passenger_volume_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::Integer)) }
     def passenger_volume_in_database; end
@@ -1016,8 +1037,8 @@ class Airport
     sig { returns(T.nilable([T.nilable(::Integer), T.nilable(::Integer)])) }
     def passenger_volume_previous_change; end
 
-    sig { returns(T::Boolean) }
-    def passenger_volume_previously_changed?; end
+    sig { params(from: T.nilable(::Integer), to: T.nilable(::Integer)).returns(T::Boolean) }
+    def passenger_volume_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::Integer)) }
     def passenger_volume_previously_was; end
@@ -1133,7 +1154,7 @@ class Airport
     sig { returns(T::Boolean) }
     def saved_change_to_icao?; end
 
-    sig { returns(T.nilable([T.untyped, T.untyped])) }
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
     def saved_change_to_id; end
 
     sig { returns(T::Boolean) }
@@ -1223,8 +1244,8 @@ class Airport
     sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
     def source_change_to_be_saved; end
 
-    sig { returns(T::Boolean) }
-    def source_changed?; end
+    sig { params(from: T.nilable(::String), to: T.nilable(::String)).returns(T::Boolean) }
+    def source_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::String)) }
     def source_in_database; end
@@ -1232,8 +1253,8 @@ class Airport
     sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
     def source_previous_change; end
 
-    sig { returns(T::Boolean) }
-    def source_previously_changed?; end
+    sig { params(from: T.nilable(::String), to: T.nilable(::String)).returns(T::Boolean) }
+    def source_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::String)) }
     def source_previously_was; end
@@ -1268,8 +1289,8 @@ class Airport
     sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
     def timezone_change_to_be_saved; end
 
-    sig { returns(T::Boolean) }
-    def timezone_changed?; end
+    sig { params(from: T.nilable(::String), to: T.nilable(::String)).returns(T::Boolean) }
+    def timezone_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::String)) }
     def timezone_in_database; end
@@ -1298,8 +1319,8 @@ class Airport
     sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
     def timezone_olson_change_to_be_saved; end
 
-    sig { returns(T::Boolean) }
-    def timezone_olson_changed?; end
+    sig { params(from: T.nilable(::String), to: T.nilable(::String)).returns(T::Boolean) }
+    def timezone_olson_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::String)) }
     def timezone_olson_in_database; end
@@ -1307,8 +1328,8 @@ class Airport
     sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
     def timezone_olson_previous_change; end
 
-    sig { returns(T::Boolean) }
-    def timezone_olson_previously_changed?; end
+    sig { params(from: T.nilable(::String), to: T.nilable(::String)).returns(T::Boolean) }
+    def timezone_olson_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::String)) }
     def timezone_olson_previously_was; end
@@ -1322,8 +1343,8 @@ class Airport
     sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
     def timezone_previous_change; end
 
-    sig { returns(T::Boolean) }
-    def timezone_previously_changed?; end
+    sig { params(from: T.nilable(::String), to: T.nilable(::String)).returns(T::Boolean) }
+    def timezone_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::String)) }
     def timezone_previously_was; end
@@ -1358,8 +1379,8 @@ class Airport
     sig { returns(T.nilable([T.nilable(::Integer), T.nilable(::Integer)])) }
     def uid_change_to_be_saved; end
 
-    sig { returns(T::Boolean) }
-    def uid_changed?; end
+    sig { params(from: T.nilable(::Integer), to: T.nilable(::Integer)).returns(T::Boolean) }
+    def uid_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::Integer)) }
     def uid_in_database; end
@@ -1367,8 +1388,8 @@ class Airport
     sig { returns(T.nilable([T.nilable(::Integer), T.nilable(::Integer)])) }
     def uid_previous_change; end
 
-    sig { returns(T::Boolean) }
-    def uid_previously_changed?; end
+    sig { params(from: T.nilable(::Integer), to: T.nilable(::Integer)).returns(T::Boolean) }
+    def uid_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::Integer)) }
     def uid_previously_was; end
@@ -1403,8 +1424,8 @@ class Airport
     sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
     def updated_at_change_to_be_saved; end
 
-    sig { returns(T::Boolean) }
-    def updated_at_changed?; end
+    sig { params(from: ::ActiveSupport::TimeWithZone, to: ::ActiveSupport::TimeWithZone).returns(T::Boolean) }
+    def updated_at_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
     def updated_at_in_database; end
@@ -1412,8 +1433,8 @@ class Airport
     sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
     def updated_at_previous_change; end
 
-    sig { returns(T::Boolean) }
-    def updated_at_previously_changed?; end
+    sig { params(from: ::ActiveSupport::TimeWithZone, to: ::ActiveSupport::TimeWithZone).returns(T::Boolean) }
+    def updated_at_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
     def updated_at_previously_was; end
@@ -1505,31 +1526,22 @@ class Airport
     def except(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
-    def excluding(*args, &blk); end
-
-    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def extending(*args, &blk); end
 
-    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
-    def extract_associated(*args, &blk); end
+    sig { params(association: Symbol).returns(T::Array[T.untyped]) }
+    def extract_associated(association); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def from(*args, &blk); end
 
-    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
+    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelationGroupChain) }
     def group(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def having(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
-    def in_order_of(*args, &blk); end
-
-    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def includes(*args, &blk); end
-
-    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
-    def invert_where(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def joins(*args, &blk); end
@@ -1595,9 +1607,6 @@ class Airport
     def strict_loading(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
-    def structurally_compatible?(*args, &blk); end
-
-    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def uniq!(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
@@ -1605,9 +1614,6 @@ class Airport
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelationWhereChain) }
     def where(*args, &blk); end
-
-    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
-    def without(*args, &blk); end
   end
 
   class PrivateAssociationRelation < ::ActiveRecord::AssociationRelation
@@ -1617,14 +1623,44 @@ class Airport
     Elem = type_member { { fixed: ::Airport } }
 
     sig { returns(T::Array[::Airport]) }
+    def to_a; end
+
+    sig { returns(T::Array[::Airport]) }
     def to_ary; end
+  end
+
+  class PrivateAssociationRelationGroupChain < PrivateAssociationRelation
+    Elem = type_member { { fixed: ::Airport } }
+
+    sig { params(column_name: T.any(String, Symbol)).returns(T::Hash[T.untyped, Numeric]) }
+    def average(column_name); end
+
+    sig { params(operation: Symbol, column_name: T.any(String, Symbol)).returns(T::Hash[T.untyped, Numeric]) }
+    def calculate(operation, column_name); end
+
+    sig { params(column_name: T.untyped).returns(T::Hash[T.untyped, Integer]) }
+    def count(column_name = nil); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(T.self_type) }
+    def having(*args, &blk); end
+
+    sig { params(column_name: T.any(String, Symbol)).returns(T::Hash[T.untyped, T.untyped]) }
+    def maximum(column_name); end
+
+    sig { params(column_name: T.any(String, Symbol)).returns(T::Hash[T.untyped, T.untyped]) }
+    def minimum(column_name); end
+
+    sig do
+      params(
+        column_name: T.nilable(T.any(String, Symbol)),
+        block: T.nilable(T.proc.params(record: T.untyped).returns(T.untyped))
+      ).returns(T::Hash[T.untyped, Numeric])
+    end
+    def sum(column_name = nil, &block); end
   end
 
   class PrivateAssociationRelationWhereChain < PrivateAssociationRelation
     Elem = type_member { { fixed: ::Airport } }
-
-    sig { params(args: T.untyped).returns(PrivateAssociationRelation) }
-    def associated(*args); end
 
     sig { params(args: T.untyped).returns(PrivateAssociationRelation) }
     def missing(*args); end
@@ -1708,6 +1744,9 @@ class Airport
     def target; end
 
     sig { returns(T::Array[::Airport]) }
+    def to_a; end
+
+    sig { returns(T::Array[::Airport]) }
     def to_ary; end
   end
 
@@ -1718,14 +1757,44 @@ class Airport
     Elem = type_member { { fixed: ::Airport } }
 
     sig { returns(T::Array[::Airport]) }
+    def to_a; end
+
+    sig { returns(T::Array[::Airport]) }
     def to_ary; end
+  end
+
+  class PrivateRelationGroupChain < PrivateRelation
+    Elem = type_member { { fixed: ::Airport } }
+
+    sig { params(column_name: T.any(String, Symbol)).returns(T::Hash[T.untyped, Numeric]) }
+    def average(column_name); end
+
+    sig { params(operation: Symbol, column_name: T.any(String, Symbol)).returns(T::Hash[T.untyped, Numeric]) }
+    def calculate(operation, column_name); end
+
+    sig { params(column_name: T.untyped).returns(T::Hash[T.untyped, Integer]) }
+    def count(column_name = nil); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(T.self_type) }
+    def having(*args, &blk); end
+
+    sig { params(column_name: T.any(String, Symbol)).returns(T::Hash[T.untyped, T.untyped]) }
+    def maximum(column_name); end
+
+    sig { params(column_name: T.any(String, Symbol)).returns(T::Hash[T.untyped, T.untyped]) }
+    def minimum(column_name); end
+
+    sig do
+      params(
+        column_name: T.nilable(T.any(String, Symbol)),
+        block: T.nilable(T.proc.params(record: T.untyped).returns(T.untyped))
+      ).returns(T::Hash[T.untyped, Numeric])
+    end
+    def sum(column_name = nil, &block); end
   end
 
   class PrivateRelationWhereChain < PrivateRelation
     Elem = type_member { { fixed: ::Airport } }
-
-    sig { params(args: T.untyped).returns(PrivateRelation) }
-    def associated(*args); end
 
     sig { params(args: T.untyped).returns(PrivateRelation) }
     def missing(*args); end

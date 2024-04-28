@@ -17,18 +17,12 @@ module ActiveRecord::AttributeMethods
     def attribute_method_matchers; end
     def attribute_method_matchers=(value); end
     def attribute_method_matchers?; end
-    def partial_inserts; end
-    def partial_inserts=(value); end
-    def partial_inserts?; end
-    def partial_updates; end
-    def partial_updates=(value); end
-    def partial_updates?; end
+    def partial_writes; end
+    def partial_writes=(value); end
+    def partial_writes?; end
     def skip_time_zone_conversion_for_attributes; end
     def skip_time_zone_conversion_for_attributes=(value); end
     def skip_time_zone_conversion_for_attributes?; end
-    def time_zone_aware_attributes; end
-    def time_zone_aware_attributes=(value); end
-    def time_zone_aware_attributes?; end
     def time_zone_aware_types; end
     def time_zone_aware_types=(value); end
     def time_zone_aware_types?; end
@@ -39,14 +33,10 @@ module ActiveRecord::AttributeMethods
     def attribute_aliases?; end
     def attribute_method_matchers; end
     def attribute_method_matchers?; end
-    def partial_inserts; end
-    def partial_inserts?; end
-    def partial_updates; end
-    def partial_updates?; end
+    def partial_writes; end
+    def partial_writes?; end
     def skip_time_zone_conversion_for_attributes; end
     def skip_time_zone_conversion_for_attributes?; end
-    def time_zone_aware_attributes; end
-    def time_zone_aware_attributes?; end
     def time_zone_aware_types; end
     def time_zone_aware_types?; end
   end

@@ -17,12 +17,9 @@ module ActiveRecord::AttributeMethods::Dirty
     def attribute_method_matchers; end
     def attribute_method_matchers=(value); end
     def attribute_method_matchers?; end
-    def partial_inserts; end
-    def partial_inserts=(value); end
-    def partial_inserts?; end
-    def partial_updates; end
-    def partial_updates=(value); end
-    def partial_updates?; end
+    def partial_writes; end
+    def partial_writes=(value); end
+    def partial_writes?; end
   end
 
   module GeneratedInstanceMethods
@@ -30,9 +27,7 @@ module ActiveRecord::AttributeMethods::Dirty
     def attribute_aliases?; end
     def attribute_method_matchers; end
     def attribute_method_matchers?; end
-    def partial_inserts; end
-    def partial_inserts?; end
-    def partial_updates; end
-    def partial_updates?; end
+    def partial_writes; end
+    def partial_writes?; end
   end
 end

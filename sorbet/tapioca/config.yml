@@ -4,6 +4,7 @@ gem:
   exclude:
   - unaccent
   - test-prof
+  - rspec-rails
   # doc: true
   # workers: 5
 dsl:

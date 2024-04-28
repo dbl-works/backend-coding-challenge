@@ -7,7 +7,7 @@ require 'English'
 #   exit(1)
 # end
 
-unless system('bundle exec spoom tc')
+unless system('bundle exec spoom srb tc')
   puts $CHILD_STATUS
   exit(1)
 end
